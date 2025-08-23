@@ -35,8 +35,7 @@ async def on_message(message):
         for channel in guild.text_channels:
             async for message in channel.history(limit=500):
                 for i in range(guild.member_count):
-                    if table[0][i] == message.author.name:
-                        if table[1][i] < message.created_at.date():
+                    if table[0][i] == message.author.name and table[1][i] < message.created_at.date():
                             table[1][i] = message.created_at.date()
 
         with (open("table.txt", "w") as file):
