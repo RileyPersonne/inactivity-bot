@@ -1,6 +1,5 @@
 import discord
 import datetime
-import asyncio
 import os
 
 intents = discord.Intents.default()
