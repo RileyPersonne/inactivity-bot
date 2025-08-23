@@ -32,24 +32,20 @@ async def on_message(message):
             table[1][i] = datetime.datetime(1,1,1).date()
             i = i + 1
 
-        async def read_channels():
-            for channel in guild.text_channels:
-                async for message in channel.history(limit=500):
-                    for i in range(guild.member_count):
-                        if table[0][i] == message.author.name:
-                            if table[1][i] < message.created_at.date():
-                                table[1][i] = message.created_at.date()
-                await asyncio.sleep(1)
+        for channel in guild.text_channels:
+            async for message in channel.history(limit=500):
+                for i in range(guild.member_count):
+                    if table[0][i] == message.author.name:
+                        if table[1][i] < message.created_at.date():
+                            table[1][i] = message.created_at.date()
 
-            with open("table.txt", "w") as file:
-                i = 0
-                for row in table:
-                    file.write(f'{table[0][i]} : {(datetime.datetime.today().date()-table[1][i]).days}\n')
-                    i = i + 1
+        with (open("table.txt", "w") as file):
+            i = 0
+            for row in table:
+                file.write(f'{table[0][i]} : {(datetime.datetime.today().date()-table[1][i]).days}\n')
+                i = i + 1
 
-            dm = await client.create_dm(message.author)
-            await dm.send(file=discord.File('table.txt'), content='arf arf!')
-        await read_channels()
+        dm = await client.create_dm(message.author)
+        await dm.send(file=discord.File('table.txt'), content='arf arf!')
 
-print(os.environ)
 client.run(os.getenv('TOKEN'))
