@@ -35,7 +35,7 @@ async def on_message(message):
 
         for channel in guild.text_channels:
             limit=250
-            if channel.id = 1236856577596719138:
+            if channel.id == 1236856577596719138:
                 limit=6000
             async for message in channel.history(limit=limit):
                 for i in range(guild.member_count):
