@@ -32,7 +32,7 @@ async def command_activity(message, client):
         with (open("table.txt", "w") as file):
             i = 0
             file.write(f'Days since oldest message surveyed in general: {(oldest_message - table[i][1]).days}\n')
-            file.write("Username : days since last message")
+            file.write("Username : days since last message\n")
             for row in table:
                 if table[i][1] < oldest_message:
                     file.write(f'{table[i][0]} : prior to last surveyed message\n')
