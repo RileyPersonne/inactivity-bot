@@ -1,7 +1,8 @@
 import discord
 import datetime
 
-
+baselimit = 250
+genlimit = 10000
 ## reads through the past 6000 messages in general chat, and 250 messages in each other chat and compiles the time stamps of the last message from each user, before dm-ing a txt file with: the dae of the oldest surveyed message, and a table of each username and the days since the last sent message
 async def command_activity(message, client):
     guild = client.get_guild(message.guild.id)
@@ -18,16 +19,16 @@ async def command_activity(message, client):
         i = i + 1
     ##gets the most recent messages from each channel finding the most recent message from each user
     for channel in guild.text_channels:
-        limit = 250
+        limit = baselimit
         print(channel.name)
         if channel.name == "general" or channel.id == 1236856577596719138:
-            limit = 10000
+            limit = genlimit
         if channel.permissions_for(guild.me).read_messages:
             async for post in channel.history(limit=limit):
                 for i in range(guild.member_count):
                     if table[i][0] == post.author.name and table[i][1] < post.created_at.date():
                         table[i][1] = post.created_at.date()
-                    if limit == 6000 and post.created_at.date() < oldest_message:
+                    if limit == genlimit and post.created_at.date() < oldest_message:
                         oldest_message = post.created_at.date()
     ##when loop ends create txt file, and write the table to it, before dming it to whomever called the bot
     else:
