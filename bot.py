@@ -26,7 +26,7 @@ def main():
             if message.author.guild_permissions.administrator:
                 print("admin")
 
-        if message.content.startswith('$activity') and message.author.guild_permissions.administrator:
+        if message.content.startswith('$activity') and (message.author.guild_permissions.administrator or message.author.id == pseudoadmin):
             asyncio.create_task(activity.command_activity(message, client))
 
 
