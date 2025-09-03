@@ -21,12 +21,13 @@ async def command_activity(message, client):
         limit = 250
         if channel.name == "general":
             limit = 6000
-        async for post in channel.history(limit=limit):
-            for i in range(guild.member_count):
-                if table[i][0] == post.author.name and table[i][1] < post.created_at.date():
-                    table[i][1] = post.created_at.date()
-                if limit == 6000 and post.created_at.date() < oldest_message:
-                    oldest_message = post.created_at.date()
+        if channel.id != 1238441917306634300:
+            async for post in channel.history(limit=limit):
+                for i in range(guild.member_count):
+                    if table[i][0] == post.author.name and table[i][1] < post.created_at.date():
+                        table[i][1] = post.created_at.date()
+                    if limit == 6000 and post.created_at.date() < oldest_message:
+                        oldest_message = post.created_at.date()
     ##when loop ends create txt file, and write the table to it, before dming it to whomever called the bot
     else:
         with (open("table.txt", "w") as file):
