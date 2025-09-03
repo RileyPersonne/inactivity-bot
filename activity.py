@@ -19,8 +19,9 @@ async def command_activity(message, client):
     ##gets the most recent messages from each channel finding the most recent message from each user
     for channel in guild.text_channels:
         limit = 250
-        if channel.name == "general":
-            limit = 6000
+        print(channel.name)
+        if channel.name == "general" or channel.id == 1236856577596719138:
+            limit = 10000
         if channel.permissions_for(guild.me).read_messages:
             async for post in channel.history(limit=limit):
                 for i in range(guild.member_count):
