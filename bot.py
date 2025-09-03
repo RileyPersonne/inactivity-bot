@@ -23,6 +23,8 @@ def main():
 
         if message.content.startswith('$hello Valbot'):
             await message.channel.send('Arf!')
+            if message.author.guild_permissions.administrator:
+                print("admin")
 
         if message.content.startswith('$activity') and message.author.guild_permissions.administrator:
             asyncio.create_task(activity.command_activity(message, client))
